@@ -9,11 +9,12 @@ body {
 }
 
 p {
-	margin-top: 50px;
+	/*margin-top: 50px;*/
 	background-color: black;
 }
 
 p, h2 {
+	margin-top: 30px;
 	color: #FFFFFF;
 }
 
@@ -26,12 +27,18 @@ header.startup {
 	height: 100%;
 }
 
-/*form {
-	text-align: center!important;
-}*/
-
 a {
 	color: #DC00C9;
+}
+
+.rubberBand {
+  animation-duration: 6s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+}
+
+.rubberBand:Hover {
+	animation-iteration-count: infinite;
 }
 
 .fit-picture {
@@ -47,12 +54,12 @@ a {
 
 .btn-primary {
 	background-color: #DC00C9;
-	border-color: #DC00C9!important;
+	border-color: #DC00C9;
 }
 
 .btn-primary:hover {
 	background-color: #A11B96;
-	border-color: #A11B96;
+	border-color: #A11B96!important;
 	border-width: 5px;
 	cursor: pointer;
 	font-size: 1.5em;
