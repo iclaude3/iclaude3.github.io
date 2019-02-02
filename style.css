@@ -21,7 +21,7 @@ header.startup {
 	height: 100%;
 }
 
-.mc_embed_signup form {
+#mc_embed_signup form {
 	text-align: center;
 }
 
