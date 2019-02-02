@@ -21,8 +21,8 @@ header.startup {
 	height: 100%;
 }
 
-#mc_embed_signup form {
-	text-align: center;
+form {
+	text-align: center!important;
 }
 
 .btn {
@@ -33,7 +33,7 @@ header.startup {
 
 .btn-primary {
 	background-color: #DC00C9;
-	border-color: #DC00C9;
+	border-color: #DC00C9!important;
 }
 
 .btn-primary:hover {
