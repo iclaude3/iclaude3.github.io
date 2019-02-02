@@ -9,12 +9,17 @@ body {
 }
 
 p {
+	margin-top: 50px;
+	background-color: black;
+}
+
+p, h2 {
 	color: #FFFFFF;
 }
 
 header.startup {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	background-image: url("NewYork.jpg");
 	background-position: center;
 	background-size: cover;
@@ -29,8 +34,13 @@ a {
 	color: #DC00C9;
 }
 
+.fit-picture {
+	margin-top: 30px;
+	width: 250px;
+}
+
 .btn {
-	margin-top: 180px;
+	margin-top: 30px;
     border-radius: 23px;
     font-family: 'Montserrat', sans-serif;  	
 }
