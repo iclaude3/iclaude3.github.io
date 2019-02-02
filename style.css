@@ -21,6 +21,10 @@ header.startup {
 	height: 100%;
 }
 
+.mc_embed_signup {
+	text-align: center;
+}
+
 .btn {
 	margin-top: 180px;
     border-radius: 23px;
