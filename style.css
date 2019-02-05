@@ -14,7 +14,7 @@ p {
 }
 
 p, h2 {
-	margin-top: 30px;
+	margin-top: 20px;
 	color: #FFFFFF;
 }
 
@@ -27,8 +27,30 @@ header.startup {
 	height: 100%;
 }
 
-a {
+p a {
 	color: #DC00C9;
+}
+
+/*.nav {
+	background-color: black;
+}*/
+
+.nav a {
+	color: white;
+}
+
+.nav a:hover {
+	color: #DC00C9;
+}	background-color: /*#DC00C9;*/
+}
+
+.nav-item {
+	color: white;
+}
+
+.dropdown-menu {
+	background-color: black;
+	opacity: 0.8;
 }
 
 .rubberBand {
@@ -42,7 +64,7 @@ a {
 }
 
 .fit-picture {
-	margin-top: 30px;
+	margin-top: 10px;
 	width: 250px;
 }
 
@@ -59,8 +81,8 @@ a {
 
 .btn-primary:hover {
 	background-color: #A11B96;
-	border-color: #A11B96!important;
-	border-width: 5px;
+	border-color: #A11B96; /*add !important*/
+	border-width: 5px; /*change to 0px*/
 	cursor: pointer;
 	font-size: 1.5em;
 }
