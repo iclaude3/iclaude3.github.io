@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;  
+  font-family: 'Montserrat', sans-serif;
 }
 
 p {
@@ -39,7 +39,10 @@ header.startup {
 }*/
 
 a {
-	color: #DC00C9;
+	color: #E1007F;
+}
+a:hover {
+  color: #E60606;
 }
 
 /*.nav {
@@ -65,7 +68,7 @@ a {
 }
 
 .blog-post {
-	background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Dom_of_Mischabel.jpg/1200px-Dom_of_Mischabel.jpg") no-repeat center center fixed; 
+	background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Dom_of_Mischabel.jpg/1200px-Dom_of_Mischabel.jpg") no-repeat center center fixed;
   /*-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;*/
@@ -82,26 +85,31 @@ p.intro{
 }
 
 .card-header {
-	background-color: #DC00C9;
-	opacity: 0.50;
+	background-color: #58384A;
+	/* opacity: 0.50; */
 	color: white;
+}
+
+.card-img-top {
+  width: auto;
+  height: 300px;
 }
 
 .btn {
 	margin-top: 20px;
     border-radius: 23px;
-    font-family: 'Montserrat', sans-serif;  
-    align-items: center;	
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
 }
 
 .btn-primary {
-	background-color: #DC00C9;
-	border-color: #DC00C9;
+	background-color: #E1007F;
+	border-color: #E1007F;
 }
 
 .btn-primary:hover {
-	background-color: #A11B96;
-	border-color: #A11B96; /*add !important*/
+	background-color: #E60606;
+	border-color: #E60606; /*add !important*/
 	border-width: 5px; /*change to 0px*/
 	cursor: pointer;
 	font-size: 1.5em;
