@@ -5,7 +5,8 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;  
+  font-family: 'Montserrat', sans-serif;
+  overflow: auto;
 }
 
 p {
@@ -13,8 +14,19 @@ p {
 	background-color: black;
 }
 
+h2 {
+  width: 30px;
+}
+
+.about-me {
+  display:flex|inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 13%;
+}
+
 p, h2 {
-	margin-top: 20px;
+	/* margin-top: 70px; */
 	color: #FFFFFF;
 }
 
@@ -25,6 +37,20 @@ header.startup {
 	background-position: center;
 	background-size: cover;
 	height: 100%;
+}
+
+/* properties to apply when screen width is less than
+ * or eaqual to 600px. This is a media query*/
+@media only screen and (max-width: 600px) {
+    header {
+        font-size: 0.5em;
+        padding: 0;
+    }
+
+    img {
+      height:200px;
+      width:.10%;
+    }
 }
 
 p a {
@@ -64,14 +90,15 @@ p a {
 }
 
 .fit-picture {
-	margin-top: 10px;
+	margin-top: 20px;
 	width: 250px;
+  margin-bottom: 20px
 }
 
 .btn {
 	margin-top: 20px;
     border-radius: 23px;
-    font-family: 'Montserrat', sans-serif;  	
+    font-family: 'Montserrat', sans-serif;
 }
 
 .btn-primary {
