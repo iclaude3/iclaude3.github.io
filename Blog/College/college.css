@@ -87,6 +87,10 @@ a:hover {
 	opacity: 0.8;
 }
 
+.dropdown-menu a:hover {
+  color: #316A25;
+}
+
 .fit-picture {
 	margin-top: 10px;
 	width: 250px;

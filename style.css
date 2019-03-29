@@ -9,7 +9,7 @@ body {
   overflow: auto;
 }
 
-p {
+header p {
 	/*margin-top: 50px;*/
 	background-color: black;
 }
@@ -57,6 +57,22 @@ p a {
 	color: #DC00C9;
 }
 
+.white {
+  color: white;
+}
+
+.no-link-style:hover {
+  text-decoration: none;
+}
+
+.hover-pink:hover {
+  color: #DC00C9;
+}
+
+.hover-green:hover {
+  color: #32FC08;
+}
+
 .hidden {
   display: none;
 }
@@ -84,6 +100,10 @@ p a {
 .dropdown-menu {
 	background-color: black;
 	opacity: 0.8;
+}
+
+.dropdown-menu a:hover {
+  color: #316A25;
 }
 
 .rubberBand {
@@ -124,4 +144,18 @@ p a {
 .LI-profile-badge {
 	display: flex;
 	align-items: center;
+}
+
+/* PROJECT STYLE */
+#projcts h2 {
+  color: black;
+}
+
+.black-text {
+  color: black;
+}
+
+.jumbotron {
+  margin-top 2em;
+  text-align: center;
 }

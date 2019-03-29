@@ -87,13 +87,9 @@ a:hover {
 	opacity: 0.8;
 }
 
-/* .blog-post {
-	background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Dom_of_Mischabel.jpg/1200px-Dom_of_Mischabel.jpg") no-repeat center center fixed;
-  /*-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;*/
-  background-size: cover;
-} */
+.dropdown-menu a:hover {
+  color: #316A25;
+}
 
 .fit-picture {
 	margin-top: 10px;
