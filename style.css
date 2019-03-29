@@ -70,8 +70,11 @@ p a {
 }
 
 .nav a:hover {
-	color: #DC00C9;
-}	background-color: /*#DC00C9;*/
+	color: #32FC08;
+}
+
+.nav-link:hover {
+  border: none;
 }
 
 .nav-item {

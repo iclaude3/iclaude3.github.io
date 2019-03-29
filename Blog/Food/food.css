@@ -78,6 +78,10 @@ a:hover {
 	color: white;
 }
 
+.nav-link:hover {
+  border: none;
+}
+
 .dropdown-menu {
 	background-color: black;
 	opacity: 0.8;
@@ -102,7 +106,7 @@ a:hover {
 }
 
 .card-header {
-	background-color: #58384A;
+	background-color: #1E2F3E;
 	/* opacity: 0.50; */
 	color: white;
 }
@@ -120,13 +124,13 @@ a:hover {
 }
 
 .btn-primary {
-	background-color: #E1007F;
-	border-color: #E1007F;
+	background-color: #1E2F3E;
+	border-color: #1E2F3E;
 }
 
 .btn-primary:hover {
-	background-color: #E60606;
-	border-color: #E60606; /*add !important*/
+	background-color: #2A699E;
+	border-color: #2A699E; /*add !important*/
 	border-width: 5px; /*change to 0px*/
 	cursor: pointer;
 	font-size: 1.5em;
