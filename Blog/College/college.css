@@ -1,0 +1,148 @@
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+	/*margin-top: 50px;*/
+	/*background-color: black;*/
+}
+
+p, h2 {
+	margin-top: 20px;
+	/*color: #FFFFFF;*/
+}
+
+header.startup {
+	display: flex;
+	align-items: flex-start;
+	background-image: url("cover.jpg");
+	background-position: center;
+	background-size: cover;
+	height: 85%;
+}
+
+/* properties to apply when screen width is less than
+ * or eaqual to 600px. This is a media query*/
+@media only screen and (max-width: 600px) {
+    header {
+        font-size: 0.5em;
+        padding: 0;
+    }
+}
+
+/*.page {
+	display: flex;
+	align-items: flex-start;
+	background-color: black;
+	background-position: center;
+	background-size: cover;
+	height: 100%;
+	background-repeat: repeat;
+	background-attachment: scroll;
+}*/
+
+a {
+	color: #E1007F;
+}
+a:hover {
+  color: #E60606;
+}
+
+/*.nav {
+	background-color: black;
+}*/
+
+.hidden {
+  display: none;
+}
+
+.nav {
+  background-color: rgba(29, 47, 63, 0.4);
+}
+
+.nav a {
+	color: white;
+}
+
+.nav a:hover {
+	color: #B9FB26;
+}
+
+.nav-item {
+	color: white;
+}
+
+.dropdown-menu {
+	background-color: black;
+	opacity: 0.8;
+}
+
+.blog-post {
+	background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Dom_of_Mischabel.jpg/1200px-Dom_of_Mischabel.jpg") no-repeat center center fixed;
+  /*-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;*/
+  background-size: cover;
+}
+
+.fit-picture {
+	margin-top: 10px;
+	width: 250px;
+}
+
+.background-blue {
+	background-color:rgba(13, 81, 70, 0.5);
+  width: auto;
+}
+
+.card-header {
+	background-color: #58384A;
+	/* opacity: 0.50; */
+	color: white;
+}
+
+.card-img-top {
+  width: auto;
+  height: 300px;
+}
+
+.btn {
+	margin-top: 20px;
+    border-radius: 23px;
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
+}
+
+.btn-primary {
+	background-color: #E1007F;
+	border-color: #E1007F;
+}
+
+.btn-primary:hover {
+	background-color: #E60606;
+	border-color: #E60606; /*add !important*/
+	border-width: 5px; /*change to 0px*/
+	cursor: pointer;
+	font-size: 1.5em;
+}
+
+.rubberBand {
+  animation-duration: 6s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+}
+
+.rubberBand:Hover {
+	animation-iteration-count: infinite;
+}
+
+.LI-profile-badge {
+	display: flex;
+	align-items: center;
+}
