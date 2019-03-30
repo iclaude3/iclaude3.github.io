@@ -7,6 +7,9 @@ html {
 body {
   font-family: 'Montserrat', sans-serif;
   overflow: auto;
+  background: white;
+  /* background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 38%, rgba(97,36,92,1) 50%, rgba(0,0,0,1) 62%); */
 }
 
 header p {
@@ -37,6 +40,11 @@ header.startup {
 	background-position: center;
 	background-size: cover;
 	height: 100%;
+  box-shadow: 5px 7px 10px rgba(113, 39, 107, 0.35);
+}
+
+header.startup:hover {
+  box-shadow: 5px 7px 10px rgba(252, 0, 231, 0.35);
 }
 
 /* properties to apply when screen width is less than
@@ -57,11 +65,20 @@ p a {
 	color: #DC00C9;
 }
 
+.shadow-pink:hover {
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 5px 5px 5px rgba(113, 39, 107, 0.7);
+}
+
 .white {
   color: white;
 }
 
 .no-link-style:hover {
+  text-decoration: none;
+}
+
+.no-link-style:visited {
   text-decoration: none;
 }
 
@@ -134,7 +151,8 @@ p a {
 }
 
 .btn-primary:hover {
-	background-color: #A11B96;
+	/* background-color: #A11B96; */
+  background: rgba(161, 27, 150, 0.9);
 	border-color: #A11B96; /*add !important*/
 	border-width: 5px; /*change to 0px*/
 	cursor: pointer;
@@ -147,7 +165,14 @@ p a {
 }
 
 /* PROJECT STYLE */
-#projcts h2 {
+#Projects {
+  /* background-color: white; */
+  /* border: 1px solid; */
+  /* border-color: #888888; */
+
+}
+
+#Projcts h2 {
   color: black;
 }
 
@@ -158,4 +183,18 @@ p a {
 .jumbotron {
   margin-top 2em;
   text-align: center;
+}
+
+.jumbotron:hover {
+  box-shadow: 5px 5px 10px rgba(113, 39, 107, 0.9);
+}
+
+#ProjectOne, #ProjectTwo {
+  background-color: rgba(0,0,0,.05);
+  padding: 2%;
+}
+
+#ProjectOne:hover, #ProjectTwo:hover {
+  background-color: white;
+  box-shadow: 5px 7px 10px rgba(113, 39, 107, 0.9);
 }
