@@ -10,7 +10,7 @@ body {
 
 p {
 	/*margin-top: 50px;*/
-	/*background-color: black;*/
+	color: black;
 }
 
 p, h2 {
@@ -21,17 +21,17 @@ p, h2 {
 header.startup {
 	display: flex;
 	align-items: flex-start;
-	background-image: url("cover.jpg");
+	background-image: url("street.jpg");
 	background-position: center;
 	background-size: cover;
-	height: 85%;
+	height: 100%;
 }
 
 /* properties to apply when screen width is less than
  * or eaqual to 600px. This is a media query*/
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 765px) {
     header {
-        font-size: 0.5em;
+        font-size: 0.7em;
         padding: 0;
     }
 }
@@ -62,8 +62,12 @@ a:hover {
   display: none;
 }
 
+.nav-tabs .nav-link {
+  border: none;
+}
+
 .nav {
-  background-color: rgba(29, 47, 63, 0.4);
+  background-color: rgba(29, 47, 63, 0.3);
 }
 
 .nav a {
@@ -71,7 +75,7 @@ a:hover {
 }
 
 .nav a:hover {
-	color: #B9FB26;
+	color: #32FC08;
 }
 
 .nav-item {
@@ -96,15 +100,55 @@ a:hover {
 	width: 250px;
 }
 
-.background-blue {
-	background-color:rgba(13, 81, 70, 0.5);
-  width: auto;
-}
+/*.background-grey {
+	background-color: black;
+	opacity: 0.5;
+  	width: wrap-content;
+}*/
 
 .card-header {
-	background-color: #1E2F3E;
-	/* opacity: 0.50; */
-	color: white;
+	background-color: ;
+	opacity: 0.50; 
+	color: black;	
+
+}
+
+.intro {
+	font-size: 5em;
+	text-align: left;
+	display: flex;
+	margin-top: 2em;
+}
+
+.left {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-self: center;
+}
+
+.posts {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+@media only screen and (min-width: 765px) {
+    .card {
+        max-width: 75%;
+    }
+}
+
+.card {
+	border-style: solid
+	border: black;
+	border-width: 2px;
+	margin-top: 1em;
+}
+
+.card:hover {
+	/*background-color: white;*/
+  box-shadow: 5px 7px 10px rgba(0, 0, 0, 0.9);
 }
 
 .card-img-top {
