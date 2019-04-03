@@ -29,9 +29,9 @@ header.startup {
 
 /* properties to apply when screen width is less than
  * or eaqual to 600px. This is a media query*/
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 765px) {
     header {
-        font-size: 0.5em;
+        font-size: 0.7em;
         padding: 0;
     }
 }
