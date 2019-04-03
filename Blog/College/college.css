@@ -21,7 +21,7 @@ p, h2 {
 header.startup {
 	display: flex;
 	align-items: flex-start;
-	background-image: url("street.jpg");
+	background-image: url("brick.jpg");
 	background-position: center;
 	background-size: cover;
 	height: 100%;
