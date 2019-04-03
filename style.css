@@ -36,7 +36,7 @@ p, h2 {
 header.startup {
 	display: flex;
 	align-items: flex-start;
-	background-image: url("NewYork.jpg");
+	background-image: url("path.jpg");
 	background-position: center;
 	background-size: cover;
 	height: 100%;
@@ -97,6 +97,10 @@ p a {
 /*.nav {
 	background-color: black;
 }*/
+
+.nav-tabs .nav-link {
+  border: none;
+}
 
 .nav a {
 	color: white;
