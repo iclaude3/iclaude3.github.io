@@ -49,15 +49,10 @@ header.startup:hover {
 
 /* properties to apply when screen width is less than
  * or eaqual to 600px. This is a media query*/
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 770px) {
     header {
         font-size: 0.5em;
         padding: 0;
-    }
-
-    img {
-      height:200px;
-      width:.10%;
     }
 
     header.startup {
@@ -216,13 +211,14 @@ p a {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9);
 }
 
-#ProjectOne, #ProjectTwo {
+.card-format {
   background-color: rgba(0,0,0,.05);
   padding: 2%;
-  margin: 10px;
+  display: inline-block;
+  margin:5%;
 }
 
-#ProjectOne:hover, #ProjectTwo:hover {
+.card-format:hover {
   background-color: white;
   /*box-shadow: 5px 7px 10px rgba(113, 39, 107, 0.9);*/
   box-shadow: 5px 7px 10px rgba(0, 0, 0, 0.9);
