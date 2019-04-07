@@ -56,8 +56,8 @@
             </ul>
             <!-- nav end -->
 
-            <!-- about me section -->
-            <div class="about-me container align-items-center">
+            <!-- intro -->
+            <div class="intro container align-items-center">
               <div class="row">
                 <h2 class="text-uppercase col-12 text-center"><span class="white hover-pink" href="#">I am Claudia</span></h2>
               </div>
@@ -97,41 +97,47 @@
     <div class="container" id="Projects">
 
       <!-- Page Heading -->
-      <h1 class="my-4 jumbotron">Projects
-        <!-- <small>Secondary Text</small> -->
-      </h1>
+    <!--   <h1 class="my-4 jumbotron">Projects
+        <small>Secondary Text</small>
+      </h1> -->
 
+      <div class="row" id="project-row-one">
       <!-- Project One -->
-      <div class="row" id="ProjectOne">
-        <div class="col-md-7">
-          <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="Projects/flixter.gif" alt="">
-          </a>
+        <div class="col" id="ProjectOne">
+          <div class="row">
+            <div class="col-md-7">
+              <a href="#">
+                <img class="img-fluid rounded mb-3 mb-md-0" src="Projects/flixter.gif" alt="">
+              </a>
+            </div>
+            <div class="col-md-5">
+              <h3>Flixter</h3>
+              <p class="black-text">Flixster is an app that allows users to browse movies from the The Movie Database API. Each movie is listed with the poster image, title, and movie overview. When a movie is clicked, the user is led to a UI that hosts the movie trailer, populatory rating, and review.</p>
+              <a class="btn btn-primary center" href="https://github.com/iclaude3/Flickster" target="_blank">View Project</a>
+            </div>
+          </div>
+          <!-- /.row -->
         </div>
-        <div class="col-md-5">
-          <h3>Flixter</h3>
-          <p class="black-text">Flixster is an app that allows users to browse movies from the The Movie Database API. Each movie is listed with the poster image, title, and movie overview. When a movie is clicked, the user is led to a UI that hosts the movie trailer, populatory rating, and review.</p>
-          <a class="btn btn-primary" href="https://github.com/iclaude3/Flickster" target="_blank">View Project</a>
-        </div>
-      </div>
-      <!-- /.row -->
 
-      <hr>
+        <hr>
 
-      <!-- Project Two -->
-      <div class="row" id="ProjectTwo">
-        <div class="col-md-7">
-          <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="Projects/socialmedia.gif" alt="">
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3>Social Media App</h3>
-          <p class="black-text">Social Media is a photo sharing app similar to Instagram but using Parse as its backend. Users can sign up to create a new account using Parse authentication. Users can log in and out of their accounts. Users can take a photo, add a caption, and post it.</p>
-          <a class="btn btn-primary" href="https://github.com/iclaude3/SocialMedia" target="_blank">View Project</a>
-        </div>
+        <!-- Project Two -->
+        <div class="col" id="ProjectTwo">
+          <div class="row">
+            <div class="col-md-7">
+              <a href="#">
+                <img class="img-fluid rounded mb-3 mb-md-0" src="Projects/socialmedia.gif" alt="">
+              </a>
+            </div>
+            <div class="col-md-5">
+              <h3>Social Media App</h3>
+              <p class="black-text">Social Media is a photo sharing app similar to Instagram but using Parse as its backend. Users can sign up to create a new account using Parse authentication. Users can log in and out of their accounts. Users can take a photo, add a caption, and post it.</p>
+              <a class="btn btn-primary center" href="https://github.com/iclaude3/SocialMedia" target="_blank">View Project</a>
+            </div>
+          </div>
+          <!-- /.row --> 
+        </div>       
       </div>
-      <!-- /.row -->
 
       <!-- <hr> -->
 
@@ -179,14 +185,14 @@
           </a>
         </li>
         <li class="page-item">
-          <a class="page-link" href="#">1</a>
+          <a class="page-link" href="#Projects">1</a>
         </li>
-        <li class="page-item">
+        <!-- <li class="page-item">
           <a class="page-link" href="#">2</a>
         </li>
         <li class="page-item">
           <a class="page-link" href="#">3</a>
-        </li>
+        </li> -->
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>

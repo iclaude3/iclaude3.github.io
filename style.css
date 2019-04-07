@@ -21,7 +21,7 @@ h2 {
   width: 30px;
 }
 
-.about-me {
+.intro {
   display:flex|inline-flex;
   justify-content: center;
   align-items: center;
@@ -58,6 +58,10 @@ header.startup:hover {
     img {
       height:200px;
       width:.10%;
+    }
+
+    header.startup {
+      height: 90%;
     }
 }
 
@@ -173,15 +177,23 @@ p a {
   /* background-color: white; */
   /* border: 1px solid; */
   /* border-color: #888888; */
-
+  margin-top: 20px;
 }
 
 #Projcts h2 {
   color: black;
 }
 
+#project-row-one {
+}
+
 .black-text {
   color: black;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }
 
 .jumbotron {
@@ -197,6 +209,7 @@ p a {
 #ProjectOne, #ProjectTwo {
   background-color: rgba(0,0,0,.05);
   padding: 2%;
+  margin: 10px;
 }
 
 #ProjectOne:hover, #ProjectTwo:hover {
