@@ -63,6 +63,10 @@ header.startup:hover {
     header.startup {
       height: 90%;
     }
+
+    .collapse {
+      display: none;
+    }
 }
 
 p a {
@@ -101,6 +105,12 @@ p a {
 /*.nav {
 	background-color: black;
 }*/
+
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+  background-color: white;
+  color: black;
+  cursor: cell;
+}
 
 .nav-tabs .nav-link {
   border: none;
