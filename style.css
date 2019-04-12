@@ -205,7 +205,7 @@ p a:hover {
   background-size: cover;
   height: 100%;
   background: rgb(255,255,255);
-  background: linear-gradient(90deg, rgba(255,255,255,0.6082633737088585) 28%, rgba(183,110,122,0.19089642693014708) 51%, rgba(255,255,255,1) 73%);
+  /* background: linear-gradient(90deg, rgba(255,255,255,0.6082633737088585) 28%, rgba(183,110,122,0.19089642693014708) 51%, rgba(255,255,255,1) 73%); */
   background-repeat: repeat-y;
 }
 
