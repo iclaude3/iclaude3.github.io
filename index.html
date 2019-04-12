@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
   <head>
     <title>I Am Claudia</title>
 
+    <meta charset="utf-8"/>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
     <!-- Bootstrap CSS from a CDN. This way you don't have to include the bootstrap file yourself -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -16,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
 
-  <body>
+  <body onload="typeWriter()">
     <!-- header -->
     <header class="startup text-center text-white d-flex">
       <div class="container">
@@ -25,22 +28,23 @@
 
             <!-- nav -->
             <nav class="nav nav-pills flex-column flex-sm-row">
-              <a class="flex-sm-fill text-sm-center nav-link active" href="#">Welcome</a>
-              <a class="flex-sm-fill text-sm-center nav-link" href="#">About Me</a>
-              <a class="flex-sm-fill text-sm-center nav-link" href="#Projects">Projects</a>
-              <a class="flex-sm-fill text-sm-center nav-link" href="Blog/Home/home.html">Blog</a>
-              <a class="flex-sm-fill text-sm-center nav-link disabled" href="#">Merchandise</a>
+              <a class="hover-pink flex-sm-fill text-sm-center nav-link active" href="#">Welcome</a>
+              <a class="hover-pink flex-sm-fill text-sm-center nav-link disabled" href="#">About Me</a>
+              <a class="hover-pink flex-sm-fill text-sm-center nav-link" href="#Social">Projects</a>
+              <a class="hover-pink flex-sm-fill text-sm-center nav-link disabled" href="Blog/Home/home.html">Blog</a>
+              <div id="google_translate_element" class="hover-pink flex-sm-fill text-sm-center nav-link" href="#"></div>
+              <a class="hover-pink flex-sm-fill text-sm-center nav-link disabled" href="#">Merchandise</a>
             </nav>
             <!-- nav end -->
 
             <!-- intro -->
             <div class="intro container align-items-center">
               <div class="row">
-                <h2 class="text-uppercase col-12 text-center"><span class="white hover-pink" href="#">I am Claudia</span></h2>
+                <h2 class="text-uppercase col-12 text-center"><span id="name" class="white hover-pink" href="#"></span></h2>
               </div>
               <img class="fit-picture item" src="myAvatar.png" alt="my avatar" />
               <br>
-              <p class="item shadow-pink">Hello! My name is <a class="no-link-style hover-green" href='https://www.linkedin.com/in/claudia-bandali?trk=profile-badge' target="_blank">Claudia</a>, and I am a New York-based Software Developer. My interests range from data analytics and machine learning to full stack web and android development. I am also a lifestyle blogger. Come follow my journey and check out my latest projects</p>
+              <p class="item shadow-pink black-hover">Hello! My name is <a class="no-link-style" href='https://www.linkedin.com/in/claudia-bandali?trk=profile-badge' target="_blank">Claudia</a>, and I am a New York-based Software Developer. My interests range from data analytics and machine learning to full stack web and android development. I am also a lifestyle blogger. Come follow my journey and check out my latest projects</p>
             </div>
 
           </div>
@@ -71,49 +75,124 @@
     </header>
 
     <!-- PROJECTS -->
-    <div class="card-deck" id="Projects">
-      <div class="card card-format" id="ProjectOne">
-        <img class="card-img-top" src="Projects/flixter.gif" alt="Flixter app gif">
-        <div class="card-body">
-          <h5 class="card-title">Flixter</h5>
-          <p class="card-text black-text">Flixster is an app that allows users to browse movies from the Movie Database API. Each movie is listed with the poster image, title, and movie overview. When a movie is clicked, the user is led to a UI that hosts the movie trailer, populatory rating, and review.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted"><a class="btn btn-primary center" href="https://github.com/iclaude3/Flickster" target="_blank">View Project</a></small>
-        </div>
-      </div>
-      <div class="card card-format" id="ProjectTwo">
-        <img class="card-img-top" src="Projects/socialmedia.gif" alt="Social Media App Gif">
-        <div class="card-body">
-          <h5 class="card-title">Social Media App</h5>
-          <p class="card-text black-text">Social Media is a photo sharing app similar to Instagram but using Parse as its backend. Users can sign up to create a new account using Parse authentication. Users can log in and out of their accounts. Users can take a photo, add a caption, and post it.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted"><a class="btn btn-primary center" href="https://github.com/iclaude3/SocialMedia" target="_blank">View Project</a></small>
-        </div>
-      </div>
-      <div class="card card-format" id="ProjectThree">
-        <img class="card-img-top" src="Projects/simpletweet.gif" alt="Social Media App Gif">
-        <div class="card-body">
-          <h5 class="card-title">Simple Tweet App</h5>
-          <p class="card-text black-text">Simple Tweet is an android app that allows a user to view their Twitter timeline. The app utilizes Twitter REST API.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted"><a class="btn btn-primary center" href="https://github.com/iclaude3/SocialMedia" target="_blank">View Project</a></small>
+    <div id="Social" class="Projects">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="smartphone shadow-pink shadow-pink-perm">
+              <div class="content">
+                <iframe scrolling="no" align="middle" src="Projects/socialmedia.gif" style="width:100%;border:none;height:100%"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="talkbubble project-details col shadow-pink">
+            <h3 class="title">Social Media App</h3>
+            <ul class="black-text">
+              <li>Users can view latest posts submitted</li>
+              <li>Users can take a photo, add a caption, and post it to Instagram</li>
+              <li>Users can pull  to refresh</li>
+              <li>Users can seemlessly switch between tabs</li>
+              <li>Users can sign up and create a new account using Parse authentication</li>
+              <li>Signed in users are persisted across app restarts</li>
+            </ul>
+            <button onClick="showFlixter()" class="animated rubberBand btn btn-primary project-btn">Next Project</button>
+          </div>
         </div>
       </div>
-      <!-- <div class="card card-format" id="ProjectFour">
-        <img class="card-img-top" src="Projects/pentesting.jpg" heigh="800px" width="400px" alt="Social Media App Gif">
-        <div class="card-body">
-          <h5 class="card-title">Pentesting</h5>
-          <p class="card-text black-text">Throughout my apprenticship with codepath, I have done some pentesting on outdated application in order to better understand cybersecurity</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted"><a class="btn btn-primary center" href="https://github.com/iclaude3/SocialMedia" target="_blank">View Project</a></small>
-        </div>
-      </div> -->
     </div>
+
+    <!-- project two -->
+    <div id="Flixter" class="Projects">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="smartphone shadow-pink shadow-pink-perm">
+              <div class="content">
+                <iframe scrolling="no" align="middle" src="Projects/flixter.gif" style="width:100%;border:none;height:100%"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="talkbubble project-details col shadow-pink">
+            <h3 class="title">Flixter</h3>
+            <ul class="black-text">
+              <li>List movies that are currently playing in theaters</li>
+              <li>Responsive views in both landscape/portrate mode using a recycler view</li>
+              <li>Exposed movie rating and preeview in seperate acticity</li>
+            </ul>
+            <button onClick="showSocial()" class="animated rubberBand btn btn-primary project-btn">Previous Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- project three -->
+    <!-- <div id="ProjectThree" class="Projects">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="smartphone">
+              <div class="content">
+                <iframe scrolling="no" align="middle" src="Projects/simpleTweet.gif" style="width:100%;border:none;height:100%"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="talkbubble project-details col">
+            <h3 class="title">Simple Tweet</h3>
+            <ul class="black-text">
+              <li>List movies that are currently playing in theaters</li>
+              <li>Responsive views in both landscape/portrate mode using a recycler view</li>
+              <li>Exposed movie rating and preeview in seperate acticity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
     <!-- PROJECTS END -->
+
+    <footer> Copyright &copy; Claudia Bandali 2019</footer>
+
+    <!-- js -->
+    <script>
+    var i = 0;
+    var txt = 'I am Claudia';
+    var speed = 120;
+
+    function typeWriter() {
+      if (i < txt.length) {
+          speed = 120;
+          document.getElementById("name").innerHTML += txt.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+      }
+    }
+
+    function showFlixter() {
+      let flix = document.getElementById("Flixter");
+      let social = document.getElementById("Social");
+      console.log(flix.style.display);
+      if(flix.style.display === "none") {
+        flix.style.display = "block";
+        social.style.display = "none";
+      } else {
+        flix.style.display = "none";
+        social.style.display = "block";
+      }
+    }
+
+    function showSocial() {
+      let flix = document.getElementById("Flixter");
+      let social = document.getElementById("Social");
+      console.log(social.style.display);
+      if(social.style.display === "none") {
+        social.style.display = "block";
+        flix.style.display = "none";
+      } else {
+        social.style.display = "none";
+        flix.style.display = "block";
+      }
+    }
+    </script>
 
     <!-- Bootstrap JS CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

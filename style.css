@@ -5,7 +5,8 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
+  font-family: 'Josefin Sans', sans-serif;
   overflow: auto;
   background: white;
   /* background: rgb(0,0,0);
@@ -14,7 +15,7 @@ body {
 
 header p {
 	/*margin-top: 50px;*/
-	background-color: black;
+	/* background-color: black; */
 }
 
 h2 {
@@ -65,12 +66,24 @@ header.startup:hover {
 }
 
 p a {
-	color: #DC00C9;
+	color: #B76E7A;
+}
+
+p a:hover {
+  color: #994956;
 }
 
 .shadow-pink:hover {
+  /* box-shadow: 5px 5px 5px rgba(113, 39, 107, 0.7); */
+  box-shadow: 5px 5px 5px rgba(183, 110, 122, 0.7);
+}
+
+.shadow-pink-perm {
+  box-shadow: 2px 2px 2px 2px rgba(183, 110, 122, 0.7);
+}
+
+.black-hover:hover {
   background: rgba(0, 0, 0, 0.9);
-  box-shadow: 5px 5px 5px rgba(113, 39, 107, 0.7);
 }
 
 .white {
@@ -86,11 +99,12 @@ p a {
 }
 
 .hover-pink:hover {
-  color: #DC00C9;
+  /* color: #DC00C9; */
+  color: #B76E79;
 }
 
 .hover-green:hover {
-  color: #32FC08;
+  color: #B76E7A;
 }
 
 .hidden {
@@ -115,13 +129,13 @@ p a {
 	color: white;
 }
 
-.nav a:hover {
+/* .nav a:hover {
 	color: #32FC08;
-}
+} */
 
-.nav-link:hover {
+/* .nav-link:hover {
   border: none;
-}
+} */
 
 .nav-item {
 	color: white;
@@ -159,14 +173,16 @@ p a {
 }
 
 .btn-primary {
-	background-color: #DC00C9;
-	border-color: #DC00C9;
+	background-color: #B76E7A;
+	border-color: #B76E7A;
 }
 
 .btn-primary:hover {
 	/* background-color: #A11B96; */
-  background: rgba(161, 27, 150, 0.9);
-	border-color: #A11B96; /*add !important*/
+  /* background: rgba(161, 27, 150, 0.9); */
+  background: rgba(153, 73, 86, 0.9);
+	border-color: #994956;
+	/* border-color: #A11B96;  */
 	border-width: 5px; /*change to 0px*/
 	cursor: pointer;
 	font-size: 1.5em;
@@ -178,48 +194,136 @@ p a {
 }
 
 /* PROJECT STYLE */
-#Projects {
-  /* background-color: white; */
+.Projects {
+  /* background-color: black; */
   /* border: 1px solid; */
   /* border-color: #888888; */
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  /* background-color: #3A7126; */
+  display: flex;
+	align-items: flex-start;
+  background-size: cover;
+  height: 100%;
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,0.6082633737088585) 28%, rgba(183,110,122,0.19089642693014708) 51%, rgba(255,255,255,1) 73%);
+  background-repeat: repeat-y;
 }
 
 #Projcts h2 {
   color: black;
 }
 
-#project-row-one {
+/* The device with borders */
+.smartphone {
+  position: relative;
+  width: 360px;
+  height: 610px;
+  margin: 0 auto;
+  padding: -0px -20px;
+  margin-top: 10%;
+  margin-bottom: 1%;
+  border: 16px black solid;
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: 36px;
+  border-color: #B76E79;
+  border-color: #FFFFFF;
 }
 
-.black-text {
-  color: black;
+/* The horizontal line on the top of the device */
+.smartphone:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
 }
 
-.center {
-  display: flex;
-  justify-content: center;
+/* The circle on the bottom of the device */
+.smartphone:after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 50%;
+  bottom: -65px;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 50%;
 }
 
-.jumbotron {
-  margin-top 2em;
+/* The screen (or content) of the device */
+.smartphone .content {
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.project-details {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 5%;
   text-align: center;
+  justify-content: center;
+  /* text-decoration-style: solid; */
 }
 
-.jumbotron:hover {
-  /*box-shadow: 5px 5px 10px rgba(113, 39, 107, 0.9);*/
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9);
+ul {
+  list-style-type: circle;
 }
 
-.card-format {
-  background-color: rgba(0,0,0,.05);
-  padding: 2%;
-  display: inline-block;
-  margin:5%;
+*, ::after, ::before {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
-.card-format:hover {
-  background-color: white;
-  /*box-shadow: 5px 7px 10px rgba(113, 39, 107, 0.9);*/
-  box-shadow: 5px 7px 10px rgba(0, 0, 0, 0.9);
+.talkbubble {
+  position: relative;
+  width: 300px;
+  height: 50%;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid rgba(244, 209, 215, .90);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.talkbubble:before {
+  content:"";
+  position: absolute;
+  right: 100%;
+  top: 26px;
+  width: 0;
+  height: 0;
+
+  border-top: 13px solid transparent;
+  border-right: 26px solid rgba(244, 209, 215, .9);
+  border-bottom: 13px solid transparent;
+}
+
+.talkbubble textarea {
+  position: inherit;
+  width: inherit;
+  height: inherit;
+  background: inherit;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  resize: none;
+}
+
+#Flixter {
+  display: none;
+}
+
+footer {
+  position: relative;
+  margin: auto 0;
 }
