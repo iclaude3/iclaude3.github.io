@@ -42,6 +42,8 @@ header.startup {
 	background-size: cover;
 	height: 100%;
   box-shadow: 5px 7px 10px rgba(113, 39, 107, 0.35);
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 header.startup:hover {
@@ -52,12 +54,8 @@ header.startup:hover {
  * or eaqual to 600px. This is a media query*/
 @media only screen and (max-width: 770px) {
     header {
-        font-size: 0.5em;
+        font-size: 1em;
         padding: 0;
-    }
-
-    header.startup {
-      height: 90%;
     }
 
     .collapse {
@@ -207,6 +205,8 @@ p a:hover {
   background: rgb(255,255,255);
   /* background: linear-gradient(90deg, rgba(255,255,255,0.6082633737088585) 28%, rgba(183,110,122,0.19089642693014708) 51%, rgba(255,255,255,1) 73%); */
   background-repeat: repeat-y;
+  overflow: scroll;
+  margin-bottom: 3%;
 }
 
 #Projcts h2 {
