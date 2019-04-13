@@ -26,7 +26,7 @@ h2 {
   display:flex|inline-flex;
   justify-content: center;
   align-items: center;
-  margin-top: 13%;
+  margin-top: 7%;
 }
 
 p, h2 {
@@ -55,7 +55,7 @@ header.startup:hover {
  * or eaqual to 600px. This is a media query*/
 @media only screen and (max-width: 770px) {
     header {
-        font-size: 1em;
+        font-size: 0.7em;
         padding: 0;
     }
 
@@ -160,15 +160,15 @@ p a:hover {
 }
 
 .fit-picture {
-	margin-top: 20px;
+	margin-top: 5px;
 	width: 250px;
   margin-bottom: 20px
 }
 
 .btn {
-	margin-top: 20px;
-    border-radius: 23px;
-    font-family: 'Montserrat', sans-serif;
+	margin-top: 5px;
+  border-radius: 23px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-primary {
