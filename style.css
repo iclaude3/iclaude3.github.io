@@ -149,15 +149,15 @@ p a:hover {
   color: #316A25;
 }
 
-.rubberBand {
+/*.rubberBand {
   animation-duration: 6s;
   animation-delay: 0s;
   animation-iteration-count: 1;
-}
+}*/
 
-.rubberBand:Hover {
-	animation-iteration-count: infinite;
-}
+/*.rubberBand:Hover {
+	animation-iteration-count: 2;
+}*/
 
 .fit-picture {
 	margin-top: 5px;
@@ -168,7 +168,12 @@ p a:hover {
 .btn {
 	margin-top: 5px;
   border-radius: 23px;
-  font-family: 'Montserrat', sans-serif;
+  opacity: 0.6
+}
+
+.translucent:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .btn-primary {
