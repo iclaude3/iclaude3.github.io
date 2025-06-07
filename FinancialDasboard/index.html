@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Financial Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutrals (Beige, Slate, Muted Teal) -->
+    <!-- Application Structure Plan: A tabbed dashboard structure was chosen to logically segment the dense financial information into four key areas: a high-level Dashboard, an interactive Rent & Budget planner, a clear 401(k) Savings summary, and a detailed Paycheck Explorer. This non-linear, task-oriented approach prevents user overwhelm by allowing them to focus on one financial aspect at a time. The key interaction is the rent slider, which transforms the static report data into a personalized "what-if" tool, directly addressing the report's central conflict between gross income rent rules and take-home pay reality. This design prioritizes user discovery and understanding over simply presenting data. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: Key income and savings totals. Goal: High-level overview. Viz/Method: KPI cards (HTML/Tailwind). Interaction: None. Justification: Quick, scannable summary.
+        - Report Info: Rent budgeting rules and their conflict. Goal: Allow user to explore rent impact. Viz/Method: Interactive HTML slider connected to a Chart.js Donut chart and dynamic text blocks. Interaction: User adjusts slider; JS updates chart and text to show real-time impact on the 50/30/20 budget. Justification: Transforms a static comparison into a powerful, personalized "what-if" scenario tool. Library: Chart.js.
+        - Report Info: 401(k) contribution strategy. Goal: Clearly present the multi-step savings plan. Viz/Method: Static info cards (HTML/Tailwind) and a summary visual. Interaction: Hover effects. Justification: Organizes complex contribution limits into a simple, digestible format. Library: None.
+        - Report Info: Paycheck tax deductions. Goal: Visualize paycheck breakdown. Viz/Method: Chart.js Donut chart for proportions and an HTML table for specifics. Interaction: Hover on chart. Justification: Provides both a quick visual and the required granular detail. Library: Chart.js. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F5; /* Warm Neutral Base */
+        }
+        .tab-active {
+            background-color: #0d9488; /* Muted Teal */
+            color: white;
+            border-color: #0d9488;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #475569; /* Slate */
+            border-color: #e2e8f0;
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        .info-icon {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            background-color: #e2e8f0;
+            color: #475569;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            flex-shrink: 0;
+        }
+        .info-popup {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 0.5rem;
+            background-color: #334155;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: max-content;
+            max-width: 320px;
+            z-index: 10;
+            font-size: 0.875rem;
+            text-align: left;
+            pointer-events: none;
+        }
+        .info-popup::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent;
+        }
+        .form-input {
+            width: 100%;
+            p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition;
+        }
+        .has-tooltip {
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-slate-900">Personal Financial Dashboard</h1>
+            <p class="text-slate-600 mt-2">An interactive tool to explore your budget</p>
+        </header>
+
+        <div id="tabs" class="mb-8 flex flex-wrap justify-center gap-2">
+            <button data-tab="dashboard" class="tab-btn py-2 px-4 font-semibold rounded-lg border transition-all duration-200 active:scale-95">Dashboard</button>
+            <button data-tab="budget" class="tab-btn py-2 px-4 font-semibold rounded-lg border transition-all duration-200 active:scale-95">Rent & Budget</button>
+            <button data-tab="savings" class="tab-btn py-2 px-4 font-semibold rounded-lg border transition-all duration-200 active:scale-95">401(k) Savings</button>
+            <button data-tab="paycheck" class="tab-btn py-2 px-4 font-semibold rounded-lg border transition-all duration-200 active:scale-95">Paycheck Explorer</button>
+        </div>
+
+        <main id="tab-content">
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="tab-pane">
+                 <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Welcome to Your Financial Overview</h2>
+                    <p class="text-slate-600 mb-4">Enter your salary below, then go to the 401(k) Savings tab to customize your contributions.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 items-center">
+                        <label for="salary-input" class="font-semibold whitespace-nowrap">Enter Annual Gross Salary:</label>
+                        <input type="number" id="salary-input" value="500000" class="w-full sm:w-auto flex-grow p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
+                        <button id="update-salary-btn" class="w-full sm:w-auto bg-teal-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-teal-700 transition-all duration-200 active:scale-95">Update Salary</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="kpi-card text-center">
+                        <h3 class="text-lg font-semibold text-slate-500">Annual Gross Salary</h3>
+                        <p id="annualSalary" class="text-4xl font-bold text-teal-600 mt-2"></p>
+                    </div>
+                    <div class="kpi-card text-center">
+                        <h3 class="text-lg font-semibold text-slate-500 flex items-center justify-center has-tooltip">
+                            Est. Monthly Take-Home
+                            <span id="takehome-info-icon" class="info-icon">i</span>
+                            <div id="takehome-info-popup" class="info-popup hidden"></div>
+                        </h3>
+                        <p id="monthlyTakeHome" class="text-4xl font-bold text-teal-600 mt-2"></p>
+                    </div>
+                    <div class="kpi-card text-center">
+                        <h3 class="text-lg font-semibold text-slate-500">Total Annual 401(k)</h3>
+                        <p id="annualSavings" class="text-4xl font-bold text-teal-600 mt-2"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Content -->
+            <div id="budget-content" class="tab-pane hidden">
+                <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Interactive Rent & Budget Planner</h2>
+                    <p class="text-slate-600">This tool helps you visualize the impact of your rent on your monthly budget. The 50/30/20 rule, a common budgeting guideline, suggests allocating 50% of your take-home pay to "Needs" (like rent, utilities, groceries), 30% to "Wants," and 20% to "Savings." Adjust the slider below to see how different rent amounts affect your "Needs" category and overall budget health.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <label for="rent-slider" class="block text-lg font-semibold text-slate-700">Monthly Rent:</label>
+                        <p class="text-4xl font-bold text-teal-600 my-2" id="rent-amount-display"></p>
+                        <input id="rent-slider" type="range" min="2000" max="6000" step="25" value="4825" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between text-sm text-slate-500 mt-1">
+                            <span id="rent-slider-min">$2,000</span>
+                            <span id="rent-slider-max">$6,000</span>
+                        </div>
+                        <div id="budget-summary" class="mt-6 p-4 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Content -->
+            <div id="savings-content" class="tab-pane hidden">
+                 <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">2025 401(k) Maximization Strategy</h2>
+                    <p class="text-slate-600">Enter your desired per-pay-period contributions below. Your pre-tax contributions lower your taxable income. The tool will calculate your employer match and total annual savings.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                     <div class="kpi-card space-y-2">
+                        <h3 class="text-lg font-semibold text-slate-500">Your Elective Deferral</h3>
+                        <label for="pretax-401k" class="text-sm font-medium">Pre-Tax 401(k) / Pay Period:</label>
+                        <input type="number" id="pretax-401k" value="903.85" class="form-input p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition w-full">
+                        <p class="text-sm text-slate-500">Annual Total: <span id="pretax-annual-total" class="font-bold"></span></p>
+                    </div>
+                    <div class="kpi-card space-y-2">
+                        <h3 class="text-lg font-semibold text-slate-500">Your After-Tax Contribution</h3>
+                        <label for="aftertax-401k" class="text-sm font-medium">After-Tax 401(k) / Pay Period:</label>
+                         <input type="number" id="aftertax-401k" value="1336.54" class="form-input p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition w-full">
+                         <p class="text-sm text-slate-500">Annual Total: <span id="aftertax-annual-total" class="font-bold"></span></p>
+                    </div>
+                    <div class="kpi-card bg-teal-50 space-y-2">
+                        <h3 class="text-lg font-semibold text-slate-500">Calculated Employer Match - 50%</h3>
+                        <p class="text-2xl font-bold text-teal-600" id="match-per-pay"> </p>
+                        <p class="text-sm text-slate-500">Annual Total: <span id="match-annual-total" class="font-bold"></span></p>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-center">
+                     <button id="update-contributions-btn" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-teal-700 transition-all duration-200 active:scale-95">Update Contributions & Recalculate</button>
+                </div>
+            </div>
+
+            <!-- Paycheck Content -->
+            <div id="paycheck-content" class="tab-pane hidden">
+                <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Paycheck Explorer</h2>
+                    <p class="text-slate-600">This section illustrates where your money goes on a per-pay-period basis. The chart visualizes the main allocations of your gross pay, while the table below provides a detailed breakdown of each estimated tax and 401(k) deduction based on your inputs. Hover over the info icon (`i`) for calculation details.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="paycheckChart"></canvas>
+                    </div>
+                    <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Estimated Deductions (per Pay Period)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="border-b-2 border-slate-200">
+                                    <tr>
+                                        <th class="py-2 pr-2 font-semibold">Category</th>
+                                        <th class="py-2 px-2 font-semibold text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paycheck-table-body">
+                                </tbody>
+                                <tfoot class="border-t-2 border-slate-200">
+                                    <tr>
+                                        <td class="py-2 pr-2 font-bold">Gross Pay</td>
+                                        <td id="gross-pay" class="py-2 px-2 font-bold text-right"></td>
+                                    </tr>
+                                    <tr class="bg-teal-50">
+                                        <td class="py-2 pr-2 font-bold text-teal-800">Final Take-Home Pay</td>
+                                        <td id="net-pay" class="py-2 px-2 font-bold text-right text-teal-800"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 text-xs text-slate-500">
+            <p>The information in this application is for general guidance and informational purposes only and is not intended as financial or tax advice. Tax calculations are estimates based on an effective tax rate and do not reflect precise tax brackets or Social Security wage limits. Please consult with a qualified financial professional before making any significant financial decisions.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const salaryInput = document.getElementById('salary-input');
+            const preTaxInput = document.getElementById('pretax-401k');
+            const afterTaxInput = document.getElementById('aftertax-401k');
+
+            const updateSalaryBtn = document.getElementById('update-salary-btn');
+            const updateContributionsBtn = document.getElementById('update-contributions-btn');
+
+            const takehomeInfoIcon = document.getElementById('takehome-info-icon');
+            const takehomeInfoPopup = document.getElementById('takehome-info-popup');
+
+            let budgetChartInstance;
+            let paycheckChartInstance;
+
+            const taxRates = {
+                federal: 0.1835,
+                socialSecurity: 0.0620,
+                nyState: 0.0602,
+                nyCity: 0.0397,
+                medicare: 0.0145,
+                nyDisability: 0.005, // 0.5%
+            };
+
+            const limits = {
+                ssWageBase: 168600,
+                electiveDeferral: 23500,
+                employerMatchMax: 11750,
+                nyDisabilityMaxWeekly: 0.60,
+            };
+
+            function calculateFinancials(annualSalary, preTaxPerPay, afterTaxPerPay) {
+                const grossBiWeekly = annualSalary > 0 ? annualSalary / 26 : 0;
+                const taxableForIncomeTax = Math.max(0, grossBiWeekly - preTaxPerPay);
+
+                const annualSS_tax = Math.min(annualSalary, limits.ssWageBase) * taxRates.socialSecurity;
+                const ssTaxPerPay = annualSS_tax / 26;
+                const medicareTaxPerPay = grossBiWeekly * taxRates.medicare;
+
+                const weeklyWage = grossBiWeekly / 2;
+                const weeklyDisability = Math.min(weeklyWage * taxRates.nyDisability, limits.nyDisabilityMaxWeekly);
+                const disabilityPerPay = weeklyDisability * 2;
+
+                const deductions = {
+                    federal: taxableForIncomeTax * taxRates.federal,
+                    nyState: taxableForIncomeTax * taxRates.nyState,
+                    nyCity: taxableForIncomeTax * taxRates.nyCity,
+                    socialSecurity: ssTaxPerPay,
+                    medicare: medicareTaxPerPay,
+                    nyDisability: disabilityPerPay,
+                };
+
+                const totalTaxes = Object.values(deductions).reduce((sum, val) => sum + val, 0);
+                const finalTakeHomePerPaycheck = grossBiWeekly - totalTaxes - preTaxPerPay - afterTaxPerPay;
+                const monthlyTakeHome = finalTakeHomePerPaycheck * 26 / 12;
+
+                const annualPreTax = preTaxPerPay * 26;
+                const calculatedMatchAnnual = Math.min(annualPreTax * 0.5, limits.employerMatchMax);
+
+                return {
+                    salary: annualSalary,
+                    monthlyTakeHome: monthlyTakeHome,
+                    grossBiWeekly: grossBiWeekly,
+                    taxableForIncomeTax: taxableForIncomeTax,
+                    totalTaxes: totalTaxes,
+                    deductions: deductions,
+                    finalTakeHomePerPaycheck: finalTakeHomePerPaycheck,
+                    preTaxPerPay,
+                    afterTaxPerPay,
+                    matchAnnual: calculatedMatchAnnual,
+                };
+            }
+
+            function updateAllMetrics() {
+                const salary = parseFloat(salaryInput.value) || 0;
+                const preTax = parseFloat(preTaxInput.value) || 0;
+                const afterTax = parseFloat(afterTaxInput.value) || 0;
+
+                const data = calculateFinancials(salary, preTax, afterTax);
+
+                updateDashboard(data);
+                updateBudgetPlanner(data);
+                updateSavings(data);
+                updatePaycheckExplorer(data);
+            }
+
+            function formatCurrency(value, cents = false) {
+                 const options = { style: 'currency', currency: 'USD' };
+                 if (!cents) {
+                    options.minimumFractionDigits = 0;
+                    options.maximumFractionDigits = 0;
+                 } else {
+                    options.minimumFractionDigits = 2;
+                    options.maximumFractionDigits = 2;
+                 }
+                return new Intl.NumberFormat('en-US', options).format(value);
+            }
+
+            function updateDashboard(data) {
+                document.getElementById('annualSalary').textContent = formatCurrency(data.salary);
+                document.getElementById('monthlyTakeHome').textContent = formatCurrency(data.monthlyTakeHome);
+                const totalAnnualSavings = (data.preTaxPerPay * 26) + (data.afterTaxPerPay * 26) + data.matchAnnual;
+                document.getElementById('annualSavings').textContent = formatCurrency(totalAnnualSavings);
+
+                const popupContent = `
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                        <span class="font-semibold">Gross Pay/Period:</span> <span class="text-right">${formatCurrency(data.grossBiWeekly, true)}</span>
+                        <span class="font-semibold">- Pre-Tax 401k:</span> <span class="text-right">${formatCurrency(data.preTaxPerPay, true)}</span>
+                        <span class="font-semibold">- Total Taxes:</span> <span class="text-right">${formatCurrency(data.totalTaxes, true)}</span>
+                        <span class="font-semibold">- After-Tax 401k:</span> <span class="text-right">${formatCurrency(data.afterTaxPerPay, true)}</span>
+                        <span class="font-semibold col-span-2 border-t border-slate-500 my-1"></span>
+                        <span class="font-semibold">= Final Pay/Period:</span> <span class="text-right">${formatCurrency(data.finalTakeHomePerPaycheck, true)}</span>
+                        <span class="col-span-2 text-center text-xs mt-1">(Final Pay x 26) / 12 months</span>
+                    </div>
+                `;
+                takehomeInfoPopup.innerHTML = popupContent;
+            }
+
+            function updateBudgetPlanner(data) {
+                const slider = document.getElementById('rent-slider');
+                const display = document.getElementById('rent-amount-display');
+                const summary = document.getElementById('budget-summary');
+                const needsBudget = data.monthlyTakeHome * 0.50;
+
+                const sliderMin = Math.max(0, Math.floor(data.monthlyTakeHome * 0.25 / 100) * 100);
+                const sliderMax = Math.floor(data.monthlyTakeHome * 0.8 / 100) * 100;
+                slider.min = sliderMin;
+                slider.max = sliderMax;
+                if (parseFloat(slider.value) > sliderMax || parseFloat(slider.value) < sliderMin) {
+                    slider.value = Math.floor(needsBudget / 100) * 100;
+                }
+
+                document.getElementById('rent-slider-min').textContent = formatCurrency(sliderMin);
+                document.getElementById('rent-slider-max').textContent = formatCurrency(sliderMax);
+
+                function updateBudget() {
+                    const rent = parseFloat(slider.value);
+                    display.textContent = formatCurrency(rent);
+
+                    const remainingForNeeds = needsBudget - rent;
+
+                    if (remainingForNeeds >= 0) {
+                        summary.innerHTML = `<h4 class="font-semibold text-lg text-green-700">On Track!</h4><p class="text-slate-600">Your rent fits within the "Needs" category. You have <strong class="text-green-700">${formatCurrency(remainingForNeeds)}</strong> left for other essentials this month.</p>`;
+                        summary.className = 'mt-6 p-4 rounded-lg bg-green-50 border border-green-200';
+                    } else {
+                        summary.innerHTML = `<h4 class="font-semibold text-lg text-red-700">Over Budget!</h4><p class="text-slate-600">Your rent exceeds the entire "Needs" budget by <strong class="text-red-700">${formatCurrency(Math.abs(remainingForNeeds))}</strong>. You'll need to use funds from "Wants" or "Savings".</p>`;
+                        summary.className = 'mt-6 p-4 rounded-lg bg-red-50 border border-red-200';
+                    }
+                    updateBudgetChart(rent, data);
+                }
+
+                slider.removeEventListener('input', window.updateBudgetHandler);
+                window.updateBudgetHandler = updateBudget;
+                slider.addEventListener('input', window.updateBudgetHandler);
+                updateBudget();
+            }
+
+            function updateBudgetChart(rent, financialData) {
+                    const ctx = document.getElementById('budgetChart').getContext('2d');
+                    const takeHome = financialData.monthlyTakeHome;
+                    const needsBudget = takeHome * 0.50;
+                    const wants = takeHome * 0.30;
+                    const savings = takeHome * 0.20;
+                    const otherNeeds = Math.max(0, needsBudget - rent);
+
+                    const data = {
+                        labels: ['Rent', 'Other Needs', 'Wants', 'Savings/Debt'],
+                        datasets: [{ data: [rent, otherNeeds, wants, savings], backgroundColor: ['#ef4444', '#f97316', '#eab308', '#22c55e'], borderColor: '#F5F5F5', borderWidth: 4 }]
+                    };
+                    if (budgetChartInstance) budgetChartInstance.destroy();
+                    budgetChartInstance = new Chart(ctx, { type: 'doughnut', data, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, title: { display: true, text: `50/30/20 Budget: ${formatCurrency(takeHome)}/month`, font: { size: 16 } }, tooltip: { callbacks: { label: (c) => `${c.label}: ${formatCurrency(c.parsed)}` } } }, cutout: '50%' } });
+            }
+
+            function updateSavings(data) {
+                document.getElementById('pretax-annual-total').textContent = formatCurrency(data.preTaxPerPay * 26);
+                document.getElementById('aftertax-annual-total').textContent = formatCurrency(data.afterTaxPerPay * 26);
+                document.getElementById('match-per-pay').textContent = `${formatCurrency(data.matchAnnual / 26)} / Pay Period`;
+                document.getElementById('match-annual-total').textContent = formatCurrency(data.matchAnnual);
+            }
+
+            function createTableRow(title, amount, tooltip) {
+                 return `
+                    <tr>
+                        <td class="py-2 pr-2 text-slate-600 has-tooltip">
+                            <div class="relative flex items-center group">
+                                ${title}
+                                <span class="info-icon ml-2">i</span>
+                                <div class="info-popup hidden group-hover:block whitespace-nowrap">${tooltip}</div>
+                            </div>
+                        </td>
+                        <td class="py-2 px-2 text-right">${formatCurrency(amount, true)}</td>
+                    </tr>
+                 `;
+            }
+
+            function updatePaycheckExplorer(data) {
+                const tableBody = document.getElementById('paycheck-table-body');
+
+                const deducationsHtml = `
+                    <tr class="font-semibold bg-slate-50"><td class="py-2 pr-2" colspan="2">401(k) Deductions</td></tr>
+                    <tr><td class="py-2 pr-2 pl-4 text-slate-600">Pre-Tax 401(k)</td><td class="py-2 px-2 text-right">${formatCurrency(data.preTaxPerPay, true)}</td></tr>
+                    <tr><td class="py-2 pr-2 pl-4 text-slate-600">After-Tax 401(k)</td><td class="py-2 px-2 text-right">${formatCurrency(data.afterTaxPerPay, true)}</td></tr>
+                `;
+
+                const taxesHtml = [
+                    { title: 'Federal', amount: data.deductions.federal, tooltip: `(Gross - Pre-Tax) * ${(taxRates.federal * 100).toFixed(2)}%<br>= ${formatCurrency(data.taxableForIncomeTax, true)} * ${(taxRates.federal * 100).toFixed(2)}%` },
+                    { title: 'Social Security', amount: data.deductions.socialSecurity, tooltip: `Gross Pay * ${taxRates.socialSecurity * 100}%<br>(On wages up to ${formatCurrency(limits.ssWageBase)}/yr)` },
+                    { title: 'Medicare', amount: data.deductions.medicare, tooltip: `Gross Pay * ${taxRates.medicare * 100}%<br>= ${formatCurrency(data.grossBiWeekly, true)} * ${taxRates.medicare * 100}%` },
+                    { title: 'NY State', amount: data.deductions.nyState, tooltip: `(Gross - Pre-Tax) * ${(taxRates.nyState * 100).toFixed(2)}%<br>= ${formatCurrency(data.taxableForIncomeTax, true)} * ${(taxRates.nyState * 100).toFixed(2)}%` },
+                    { title: 'NYC', amount: data.deductions.nyCity, tooltip: `(Gross - Pre-Tax) * ${(taxRates.nyCity * 100).toFixed(2)}%<br>= ${formatCurrency(data.taxableForIncomeTax, true)} * ${(taxRates.nyCity * 100).toFixed(2)}%` },
+                    { title: 'NY Disability', amount: data.deductions.nyDisability, tooltip: `0.5% of weekly wage, capped at ${formatCurrency(limits.nyDisabilityMaxWeekly)}/week` },
+                ].map(tax => createTableRow(tax.title, tax.amount, tax.tooltip)).join('');
+
+                tableBody.innerHTML = deducationsHtml + `<tr class="font-semibold bg-slate-50"><td class="py-2 pr-2" colspan="2">Taxes</td></tr>` + taxesHtml;
+
+                document.getElementById('gross-pay').textContent = formatCurrency(data.grossBiWeekly, true);
+                document.getElementById('net-pay').textContent = formatCurrency(data.finalTakeHomePerPaycheck, true);
+                updatePaycheckChart(data);
+            }
+
+            function updatePaycheckChart(data) {
+                 const ctx = document.getElementById('paycheckChart').getContext('2d');
+                 const chartData = {
+                    labels: ['Taxes', 'Pre-Tax 401(k)', 'After-Tax 401(k)', 'Final Take-Home'],
+                    datasets: [{ data: [data.totalTaxes, data.preTaxPerPay, data.afterTaxPerPay, data.finalTakeHomePerPaycheck], backgroundColor: ['#ef4444', '#f97316', '#3b82f6', '#10b981'], borderColor: '#F5F5F5', borderWidth: 4 }]
+                 };
+                 if (paycheckChartInstance) paycheckChartInstance.destroy();
+                 paycheckChartInstance = new Chart(ctx, { type: 'doughnut', data: chartData, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, title: { display: true, text: `Gross Pay Breakdown: ${formatCurrency(data.grossBiWeekly)}`, font: { size: 16 } }, tooltip: { callbacks: { label: (c) => `${c.label}: ${formatCurrency(c.parsed, true)}` } } }, cutout: '50%' } });
+            }
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.replace('tab-active', 'tab-inactive'));
+                    tab.classList.replace('tab-inactive', 'tab-active');
+                    tabPanes.forEach(pane => pane.id === `${target}-content` ? pane.classList.remove('hidden') : pane.classList.add('hidden'));
+                });
+            });
+            tabs[0].classList.replace('tab-inactive', 'tab-active');
+
+            updateSalaryBtn.addEventListener('click', updateAllMetrics);
+            updateContributionsBtn.addEventListener('click', updateAllMetrics);
+
+            [salaryInput, preTaxInput, afterTaxInput].forEach(input => {
+                input.addEventListener('change', updateAllMetrics);
+            });
+
+            takehomeInfoIcon.addEventListener('mouseenter', () => {
+                 takehomeInfoPopup.classList.remove('hidden');
+            });
+             takehomeInfoIcon.addEventListener('mouseleave', () => {
+                 takehomeInfoPopup.classList.add('hidden');
+            });
+
+            updateAllMetrics();
+        });
+    </script>
+</body>
+</html>
